@@ -4,6 +4,7 @@ import interfaces.Ticket;
 import models.CompositeProduct;
 import java.util.ArrayList;
 import java.util.List;
+import utils.*;
 
 
 public class LoungeService {
@@ -14,11 +15,24 @@ public class LoungeService {
 
     private LoungeService() {}
 
+
     public static LoungeService getInstance() {
         if (instance == null) {
             instance = new LoungeService();
         }
         return instance;
+    }
+
+    public double applyPricingStrategyToTicket(Ticket ticket, PricingStrategy strategy) {
+        return strategy.calculatePrice(ticket.getPrice());
+    }
+
+    public double applyPricingStrategyToOrder(Product order, PricingStrategy strategy) {
+        return strategy.calculatePrice(order.getPrice());
+    }
+
+    public double applyPricingStrategyToComposite(Product compositeProduct, PricingStrategy strategy) {
+        return strategy.calculatePrice(compositeProduct.getPrice());
     }
 
     public void addTicket(Ticket ticket) {

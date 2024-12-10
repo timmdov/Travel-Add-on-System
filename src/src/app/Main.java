@@ -143,5 +143,7 @@ public class Main {
         loungeService.addOrder(mealPackage);
 
         loungeService.displaySummary();
+
+        
     }
 }
