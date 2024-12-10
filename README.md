@@ -26,6 +26,71 @@ This system leverages key software design patterns to provide a flexible, scalab
 
 ---
 
+## Project Structure
+
+The system is organized into the following packages for clarity and maintainability:
+
+### **1. `interfaces` Package**
+- **Purpose**: Defines the core interfaces for the project.
+- **Classes**:
+    - `Ticket`: Represents the base functionality for tickets.
+    - `Product`: Represents the base functionality for all lounge products (food and beverages).
+    - `PricingStrategy`: Defines the interface for dynamic pricing strategies.
+
+---
+
+### **2. `models` Package**
+- **Purpose**: Contains the core implementations of tickets, products, and composites.
+- **Classes**:
+    - `EconomyTicket`: Represents the base ticket.
+    - `Pizza`, `Coffee`, `IceCream`: Represent base food and beverage products.
+    - `CompositeProduct`: Groups multiple products (e.g., meal packages) into a single entity.
+
+---
+
+### **3. `decorators` Package**
+- **Purpose**: Dynamically adds features or customizations to tickets and products.
+- **Classes**:
+    - **For Tickets**:
+        - `TicketDecorator`: Abstract class for ticket upgrades.
+        - `ExtraLegRoom`, `EmergencyExit`, `TheOzuExperience`: Specific upgrades for tickets.
+    - **For Products**:
+        - `IceCreamDecorator`, `PizzaDecorator`, `CoffeeDecorator`: Abstract decorators for product customizations.
+        - `VanillaScoop`, `Salami`, `ExtraEspressoShot`: Specific customizations for food and drinks.
+
+---
+
+### **4. `factories` Package**
+- **Purpose**: Centralizes the creation of products (food and beverages).
+- **Classes**:
+    - `ProductFactory`: Abstract factory interface for products.
+    - `PizzaFactory`, `CoffeeFactory`, `IceCreamFactory`: Create base instances of respective products.
+
+---
+
+### **5. `services` Package**
+- **Purpose**: Manages workflows, orders, and centralized operations.
+- **Classes**:
+    - `OrderProcess`: Abstract class for standardizing the ordering workflow.
+    - `PizzaOrder`, `CoffeeOrder`, `IceCreamOrder`: Concrete classes implementing specific workflows.
+    - `LoungeService`: **Singleton** class managing all lounge operations, including ticket upgrades, orders, and pricing.
+
+---
+
+### **6. `utils` Package**
+- **Purpose**: Contains utility classes for dynamic pricing strategies.
+- **Classes**:
+    - `PricingStrategy`: Interface for pricing strategies.
+    - `RegularPricing`: Charges regular prices with no discounts.
+    - `DiscountPricing`: Applies percentage discounts to base prices.
+
+---
+
+### **7. `controllers` Package**
+- **Purpose**: (Currently Empty) Reserved for future additions, such as user input processing or integration logic.
+
+---
+---
 ## Design Patterns Used
 
 ### **1. Decorator Pattern**
