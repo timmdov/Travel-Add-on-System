@@ -144,6 +144,6 @@ public class Main {
 
         loungeService.displaySummary();
 
-        
+
     }
 }
