@@ -108,5 +108,40 @@ public class Main {
 
         System.out.println("Meal Package Description: " + compOrder.getDescription());
         System.out.println("Meal Package Price: $" + compOrder.getPrice());
+        System.out.println(" ");
+
+        LoungeService loungeService = LoungeService.getInstance();
+
+        Ticket ticket1 = new EconomyTicket();
+        ticket1 = new ExtraLegRoom(ticket1);
+        ticket1 = new EmergencyExit(ticket1);
+        loungeService.addTicket(ticket1);
+
+        Ticket ticket2 = new EconomyTicket();
+        ticket2 = new ExtraLegRoom(ticket2);
+        loungeService.addTicket(ticket2);
+
+        Product pizzaLounge = new PizzaFactory().createProduct();
+        pizzaLounge = new Salami(pizzaLounge);
+        loungeService.addOrder(pizzaLounge);
+
+        Product coffeeLounge = new CoffeeFactory().createProduct();
+        coffeeLounge = new ExtraEspressoShot(coffeeLounge);
+        coffeeLounge = new ExtraEspressoShot(coffeeLounge);
+        loungeService.addOrder(coffeeLounge);
+
+        Product iceCreamLounge = new IceCreamFactory().createProduct();
+        iceCreamLounge = new VanillaScoop(iceCreamLounge);
+        iceCreamLounge = new VanillaScoop(iceCreamLounge);
+        iceCreamLounge = new ChocolateScoop(iceCreamLounge);
+        loungeService.addOrder(iceCreamLounge);
+
+        CompositeProduct mealPackage = new CompositeProduct();
+        mealPackage.addProduct(pizzaLounge);
+        mealPackage.addProduct(coffeeLounge);
+        mealPackage.addProduct(iceCreamLounge);
+        loungeService.addOrder(mealPackage);
+
+        loungeService.displaySummary();
     }
 }
