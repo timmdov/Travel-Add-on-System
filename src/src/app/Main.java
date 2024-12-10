@@ -84,14 +84,29 @@ public class Main {
         OrderProcess pizzaOrder = new PizzaOrder();
         pizzaOrder.processOrder();
         System.out.println();
+        System.out.println(" ");
 
         System.out.println("Processing Coffee Order:");
         OrderProcess coffeeOrder = new CoffeeOrder();
         coffeeOrder.processOrder();
         System.out.println();
+        System.out.println(" ");
 
         System.out.println("Processing Ice Cream Order:");
         OrderProcess iceCreamOrder = new IceCreamOrder();
         iceCreamOrder.processOrder();
+        System.out.println(" ");
+
+        Product pizzaCompOrder = new PizzaFactory().createProduct();
+        Product coffeeCompOrder = new CoffeeFactory().createProduct();
+        Product iceCreamCompOrder = new IceCreamFactory().createProduct();
+
+        CompositeProduct compOrder = new CompositeProduct();
+        compOrder.addProduct(pizzaCompOrder);
+        compOrder.addProduct(coffeeCompOrder);
+        compOrder.addProduct(iceCreamCompOrder);
+
+        System.out.println("Meal Package Description: " + compOrder.getDescription());
+        System.out.println("Meal Package Price: $" + compOrder.getPrice());
     }
 }
