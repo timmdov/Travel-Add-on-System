@@ -1,12 +1,9 @@
 package app;
 import decorators.*;
-import interfaces.Ticket;
-import interfaces.Product;
-import models.EconomyTicket;
-import factories.ProductFactory;
-import factories.PizzaFactory;
-import factories.CoffeeFactory;
-
+import interfaces.*;
+import models.*;
+import factories.*;
+import services.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -61,5 +58,40 @@ public class Main {
         System.out.println("Coffee Description: " + coffee.getDescription());
         System.out.println("Coffee Price" + " - $" + coffee.getPrice());
         System.out.println(" ");
+
+        IceCreamFactory iceCreamFactory = new IceCreamFactory();
+        Product iceCream = iceCreamFactory.createProduct();
+        System.out.println("Ice Cream Description: " + iceCream.getDescription());
+        System.out.println("Ice Cream Price" + " - $" + iceCream.getPrice());
+        System.out.println(" ");
+
+        iceCream = new VanillaScoop(iceCream);
+        System.out.println("Ice Cream Description: " + iceCream.getDescription());
+        System.out.println("Ice Cream Price" + " - $" + iceCream.getPrice());
+        System.out.println(" ");
+
+        iceCream = new VanillaScoop(iceCream);
+        System.out.println("Ice Cream Description: " + iceCream.getDescription());
+        System.out.println("Ice Cream Price" + " - $" + iceCream.getPrice());
+        System.out.println(" ");
+
+        iceCream = new ChocolateScoop(iceCream);
+        System.out.println("Ice Cream Description: " + iceCream.getDescription());
+        System.out.println("Ice Cream Price" + " - $" + iceCream.getPrice());
+        System.out.println(" ");
+
+        System.out.println("Processing Pizza Order:");
+        OrderProcess pizzaOrder = new PizzaOrder();
+        pizzaOrder.processOrder();
+        System.out.println();
+
+        System.out.println("Processing Coffee Order:");
+        OrderProcess coffeeOrder = new CoffeeOrder();
+        coffeeOrder.processOrder();
+        System.out.println();
+
+        System.out.println("Processing Ice Cream Order:");
+        OrderProcess iceCreamOrder = new IceCreamOrder();
+        iceCreamOrder.processOrder();
     }
 }
