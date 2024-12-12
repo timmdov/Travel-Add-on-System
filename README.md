@@ -5,22 +5,22 @@
 The **Ozu Lounge Manager** is a backend system designed to provide a seamless and luxurious experience for Ozu Airlines' passengers in their premium lounges. This system is built to manage the following functionalities:
 
 1. **Ticket Upgrades**:
-   - Passengers can upgrade their economy tickets with additional packages like:
-      - **Extra Leg Room**: More space for comfort.
-      - **Emergency Exit**: Seating near the emergency exit for convenience.
-      - **The Ozu Experience**: A premium package including lounge access and priority boarding.
-   - These upgrades are dynamically added to tickets, allowing flexible customization based on passenger preferences.
+    - Passengers can upgrade their economy tickets with additional packages like:
+        - **Extra Leg Room**: More space for comfort.
+        - **Emergency Exit**: Seating near the emergency exit for convenience.
+        - **The Ozu Experience**: A premium package including lounge access and priority boarding.
+    - These upgrades are dynamically added to tickets, allowing flexible customization based on passenger preferences.
 
 2. **Food and Drink Orders**:
-   - The lounge includes services like SCOLA Ice Cream Palace, FEAS Pizzeria, and EF-Coffee, offering customizable food and beverages.
-   - Customers can order items with optional add-ons (e.g., toppings for pizzas, extra espresso shots for coffee).
-   - The price is calculated dynamically based on the chosen base product and add-ons.
+    - The lounge includes services like SCOLA Ice Cream Palace, FEAS Pizzeria, and EF-Coffee, offering customizable food and beverages.
+    - Customers can order items with optional add-ons (e.g., toppings for pizzas, extra espresso shots for coffee).
+    - The price is calculated dynamically based on the chosen base product and add-ons.
 
 3. **Unified Interface**:
-   - All functionalities are accessible through a common interface, ensuring a consistent customer experience.
+    - All functionalities are accessible through a common interface, ensuring a consistent customer experience.
 
 4. **Dynamic Pricing**:
-   - Ticket upgrades and lounge orders are priced dynamically based on configurations selected by the customer.
+    - Ticket upgrades and lounge orders are priced dynamically based on configurations selected by the customer.
 
 This system leverages key software design patterns to provide a flexible, scalable, and maintainable solution, ensuring easy integration with a UI or additional features in the future.
 
@@ -77,20 +77,6 @@ The system is organized into the following packages for clarity and maintainabil
 
 ---
 
-### **6. `utils` Package**
-- **Purpose**: Contains utility classes for dynamic pricing strategies.
-- **Classes**:
-    - `PricingStrategy`: Interface for pricing strategies.
-    - `RegularPricing`: Charges regular prices with no discounts.
-    - `DiscountPricing`: Applies percentage discounts to base prices.
-
----
-
-### **7. `controllers` Package**
-- **Purpose**: (Currently Empty) Reserved for future additions, such as user input processing or integration logic.
-
----
----
 ## Design Patterns Used
 
 ### **1. Decorator Pattern**
@@ -129,14 +115,6 @@ The system is organized into the following packages for clarity and maintainabil
 **Purpose**:
 - To ensure only one instance of the lounge system exists and provides a centralized interface for customers.
 - To manage global access to shared resources like order services and pricing calculations.
-
----
-
-### **6. Strategy Pattern**
-**Purpose**:
-- To allow dynamic selection of pricing algorithms (e.g., regular pricing, discount pricing).
-- To encapsulate pricing rules and make them interchangeable at runtime.
-- To provide flexibility in applying different pricing strategies based on customer or order type.
 
 ---
 
