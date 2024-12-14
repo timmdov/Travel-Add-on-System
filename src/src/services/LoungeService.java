@@ -1,20 +1,20 @@
 package services;
-import interfaces.Product;
-import interfaces.Ticket;
-import models.CompositeProduct;
+
+import interfaces.*;
+import models.*;
+
 import java.util.ArrayList;
 import java.util.List;
-import utils.*;
-
 
 public class LoungeService {
     private static LoungeService instance;
+    private Ticket ticket;
+    private final List<Product> products;
 
-    private final List<Ticket> tickets = new ArrayList<>();
-    private final List<Product> orders = new ArrayList<>();
-
-    private LoungeService() {}
-
+    private LoungeService() {
+        this.ticket = new EconomyTicket();
+        this.products = new ArrayList<>();
+    }
 
     public static LoungeService getInstance() {
         if (instance == null) {
@@ -23,51 +23,31 @@ public class LoungeService {
         return instance;
     }
 
-    public double applyPricingStrategyToTicket(Ticket ticket, PricingStrategy strategy) {
-        return strategy.calculatePrice(ticket.getPrice());
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
     }
 
-    public double applyPricingStrategyToOrder(Product order, PricingStrategy strategy) {
-        return strategy.calculatePrice(order.getPrice());
-    }
-
-    public double applyPricingStrategyToComposite(Product compositeProduct, PricingStrategy strategy) {
-        return strategy.calculatePrice(compositeProduct.getPrice());
-    }
-
-    public void addTicket(Ticket ticket) {
-        tickets.add(ticket);
-    }
-
-    public void addOrder(Product order) {
-        orders.add(order);
-    }
-
-    public double calculateTotalTicketCost() {
-        return tickets.stream().mapToDouble(Ticket::getPrice).sum();
-    }
-
-    public double calculateTotalOrderCost() {
-        return orders.stream().mapToDouble(Product::getPrice).sum();
-    }
-
-    public double calculateTotalCost() {
-        return calculateTotalTicketCost() + calculateTotalOrderCost();
+    // ==== Add Product ====
+    public void addProduct(Product product) {
+        if (product != null) {
+            products.add(product);
+        }
     }
 
     public void displaySummary() {
-        System.out.println("===== Lounge Service Summary =====");
-
-        System.out.println("Tickets:");
-        tickets.forEach(ticket -> System.out.println("- " + ticket.getDescription() + ": $" + ticket.getPrice()));
-
+        System.out.println("\n===== Lounge Service Summary =====");
+        System.out.println("Ticket:");
+        System.out.println("- " + ticket.getDescription() + ": $" + ticket.getPrice());
         System.out.println("\nOrders:");
-        orders.forEach(order -> System.out.println("- " + order.getDescription() + ": $" + order.getPrice()));
-
-        System.out.println("\nTotal Ticket Cost: $" + calculateTotalTicketCost());
-        System.out.println("Total Order Cost: $" + calculateTotalOrderCost());
-        System.out.println("Overall Total Cost: $" + calculateTotalCost());
-
-        System.out.println("===================================");
+        if (products.isEmpty()) {
+            System.out.println("- No products ordered.");
+        } else {
+            for (Product product : products) {
+                System.out.println("- " + product.getDescription() + ": $" + product.getPrice());
+            }
+        }
+        double totalCost = ticket.getPrice() + products.stream().mapToDouble(Product::getPrice).sum();
+        System.out.printf("\nTotal Cost: $%.2f%n", totalCost);
+        System.out.println("===========================");
     }
 }

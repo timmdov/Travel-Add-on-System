@@ -20,7 +20,7 @@ The **Ozu Lounge Manager** is a backend system designed to provide a seamless an
     - All functionalities are accessible through a common interface, ensuring a consistent customer experience.
 
 4. **Dynamic Pricing**:
-    - Ticket upgrades and lounge orders are priced dynamically based on configurations selected by the customer.
+    - Ticket upgrades and lounge orders are priced dynamically based on configurations selected by the customer. Customizations like toppings or extras are seamlessly added without modifying base classes.
 
 This system leverages key software design patterns to provide a flexible, scalable, and maintainable solution, ensuring easy integration with a UI or additional features in the future.
 
@@ -35,16 +35,14 @@ The system is organized into the following packages for clarity and maintainabil
 - **Classes**:
     - `Ticket`: Represents the base functionality for tickets.
     - `Product`: Represents the base functionality for all lounge products (food and beverages).
-    - `PricingStrategy`: Defines the interface for dynamic pricing strategies.
 
 ---
 
 ### **2. `models` Package**
-- **Purpose**: Contains the core implementations of tickets, products, and composites.
+- **Purpose**: Contains the core implementations of tickets and products.
 - **Classes**:
     - `EconomyTicket`: Represents the base ticket.
     - `Pizza`, `Coffee`, `IceCream`: Represent base food and beverage products.
-    - `CompositeProduct`: Groups multiple products (e.g., meal packages) into a single entity.
 
 ---
 
@@ -71,7 +69,7 @@ The system is organized into the following packages for clarity and maintainabil
 ### **5. `services` Package**
 - **Purpose**: Manages workflows, orders, and centralized operations.
 - **Classes**:
-    - `OrderProcess`: Abstract class for standardizing the ordering workflow.
+    - `OrderProcess`: Abstract class for standardizing the ordering workflow. This feature is currently optional and can be extended for more advanced scenarios.
     - `PizzaOrder`, `CoffeeOrder`, `IceCreamOrder`: Concrete classes implementing specific workflows.
     - `LoungeService`: **Singleton** class managing all lounge operations, including ticket upgrades, orders, and pricing.
 
@@ -81,40 +79,27 @@ The system is organized into the following packages for clarity and maintainabil
 
 ### **1. Decorator Pattern**
 **Purpose**:
-- To dynamically add features (like "Extra Leg Room" or "Unlimited Beverages") to a ticket without modifying the base class.
-- To avoid creating multiple subclasses for every combination of ticket upgrades.
-- To enable flexible and dynamic composition of features.
+- Dynamically adds features (like "Extra Leg Room" or "Unlimited Beverages") to tickets and products without modifying the base class.
 
 ---
 
 ### **2. Factory Pattern**
 **Purpose**:
-- To simplify the creation of products like pizzas, coffees, and other lounge services.
-- To centralize object creation logic, making the system extensible for new product types.
-- To separate product instantiation from business logic.
+- Simplifies the creation of products (e.g., pizzas, coffees).
+- Centralizes object creation logic, making the system extensible.
 
 ---
 
 ### **3. Template Method Pattern**
 **Purpose**:
-- To standardize the workflow for ordering items (e.g., food, drinks, ticket upgrades).
-- To ensure consistency in processes like "ask preferences → prepare → deliver → accept payment."
-- To allow specific steps of the workflow to be customized for different product types.
+- Standardizes workflows for ordering items.
+- Used in `OrderProcess` for potential future workflows.
 
 ---
 
-### **4. Composite Pattern**
+### **4. Singleton Pattern**
 **Purpose**:
-- To allow grouping multiple products (e.g., meal packages with pizza, coffee, and dessert) as a single object.
-- To treat individual products and groups of products uniformly.
-- To simplify operations like calculating total price and providing descriptions for grouped items.
-
----
-
-### **5. Singleton Pattern**
-**Purpose**:
-- To ensure only one instance of the lounge system exists and provides a centralized interface for customers.
-- To manage global access to shared resources like order services and pricing calculations.
+- Ensures a single instance of `LoungeService` manages all operations.
 
 ---
 
